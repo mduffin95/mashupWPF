@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
+using System.IO;
 
 namespace Mashup
 {
@@ -20,9 +22,19 @@ namespace Mashup
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+        public String FileText { get; set; }
+
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            if (openFileDialog.ShowDialog() == true)
+                FileText = File.ReadAllText(openFileDialog.FileName);
         }
     }
 }
