@@ -29,12 +29,6 @@ namespace Mashup
         {
             InitializeComponent();
         }
-
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
-        {
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-                FileText = File.ReadAllText(openFileDialog.FileName);
-        }
+        
     }
 }
