@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mashup"
+        xmlns:dd="urn:gong-wpf-dragdrop"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
 
@@ -17,7 +18,16 @@
                TargetType="{x:Type Button}">
             <Setter Property="Padding" Value="5,2,5,2"/>
         </Style>
+
+        <DataTemplate x:Key="segmentTemplate">
+            <Label Content="{Binding Segment}">
+                <Label.InputBindings>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ChangeSegmentCommand}"/>
+                </Label.InputBindings>
+            </Label>
+        </DataTemplate>
     </Window.Resources>
+    
     <DockPanel LastChildFill="True">
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="_File">
@@ -26,25 +36,27 @@
                 <MenuItem Header="_Save"/>
             </MenuItem>
         </Menu>
-        <ItemsControl DockPanel.Dock="Top" ItemsSource="{Binding Segments}">
+        <ItemsControl DockPanel.Dock="Top" 
+                      ItemsSource="{Binding Segments}" 
+                      ItemTemplate="{StaticResource segmentTemplate}"
+                      dd:DragDrop.IsDragSource="True"
+                      dd:DragDrop.IsDropTarget="True">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Button Content="{Binding Segment}" Command="{Binding ChangeSegmentCommand}"/>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <DockPanel DockPanel.Dock="Bottom" LastChildFill="True">            
-            <Button Content="Search" DockPanel.Dock="Right" Style="{StaticResource btnStyle}"/>
-            <TextBox/>
+        <DockPanel DockPanel.Dock="Bottom" 
+                   LastChildFill="True">            
+            <Button Content="Search" 
+                    DockPanel.Dock="Right" 
+                    Style="{StaticResource btnStyle}" 
+                    Command="{Binding SearchCommand, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Text="{Binding SearchText, Mode=OneWayToSource}"/>
         </DockPanel>
-        <ListBox>
-            
-        </ListBox>
-
+        <ListBox ItemsSource="{Binding SearchSegments}" 
+                 ItemTemplate="{StaticResource segmentTemplate}"
+                 dd:DragDrop.IsDragSource="True"/>
     </DockPanel>
 </Window>
