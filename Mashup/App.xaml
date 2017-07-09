@@ -4,6 +4,9 @@
              xmlns:local="clr-namespace:Mashup"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+        <Style x:Key="btnStyle"
+               TargetType="{x:Type Button}">
+            <Setter Property="Padding" Value="5,2,5,2"/>
+        </Style>
     </Application.Resources>
 </Application>

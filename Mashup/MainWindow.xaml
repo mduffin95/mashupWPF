@@ -14,15 +14,11 @@
     </Window.DataContext>
 
     <Window.Resources>
-        <Style x:Key="btnStyle"
-               TargetType="{x:Type Button}">
-            <Setter Property="Padding" Value="5,2,5,2"/>
-        </Style>
 
         <DataTemplate x:Key="segmentTemplate">
-            <Label Content="{Binding Segment}">
+            <Label Content="{Binding Segment}">                
                 <Label.InputBindings>
-                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding ChangeSegmentCommand}"/>
+                    <MouseBinding Gesture="LeftDoubleClick" Command="{Binding OpenSegmentEditorCommand}"/>
                 </Label.InputBindings>
             </Label>
         </DataTemplate>

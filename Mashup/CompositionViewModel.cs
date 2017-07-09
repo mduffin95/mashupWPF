@@ -69,11 +69,19 @@ namespace Mashup
         {
             string pattern = SearchText;
             string sentence = _fileText;
+            int offset = 10;
 
             SearchSegments.Clear();
             foreach (Match match in Regex.Matches(sentence, pattern))
             {
-                SearchSegments.Add(new SegmentViewModel(match.Index, match.Length, _fileText));
+                //Add onto the beginning
+                int start = match.Index - offset;
+                if (start < 0) start = 0;
+
+                //Add onto the end
+                int len = match.Length + offset;
+                if (start + len > _fileText.Length) len = _fileText.Length - start;
+                SearchSegments.Add(new SegmentViewModel(start, len, _fileText));
             }
         }
 
